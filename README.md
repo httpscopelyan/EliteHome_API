@@ -1,6 +1,7 @@
 # Jornada Do Usuário
 
-![image.png](attachment:d689c7cc-681e-419a-9769-286be4e21c6c:image.png)
+<img width="798" height="379" alt="Captura de tela 2026-05-26 115034" src="https://github.com/user-attachments/assets/571b3744-b8a9-45e3-98eb-04bcebf03f8f" />
+
 
 ## Requisitos Funcionais ( RF’s)
 
