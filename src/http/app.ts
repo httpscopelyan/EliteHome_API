@@ -1,6 +1,8 @@
 import fastify from "fastify";
-import { baseRoutes } from "./controller/base/route.js";
+import { baseRoutes } from "./controller/base/routes.js";
+import { propertiesRoutes } from "./controller/properties/routes.js";
 
 export const app = fastify();
 
-app.register(baseRoutes);
+app.register(propertiesRoutes);
+app.register(baseRoutes)
