@@ -4,7 +4,7 @@ type PropertiesType = {
 	totalValue: number;
 	numberOfRooms: number;
 	city: string;
-	state: string;
+	state: string; 
 	size: number;
 
 }
