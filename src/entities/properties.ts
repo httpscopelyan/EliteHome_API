@@ -5,9 +5,11 @@ type PropertiesType = {
 	numberOfRooms: number;
 	city: string;
 	state: string; 
-	size: number;
+	size: string;
 
 }
+// TODO definir todos os atributos da entidade Property
+
 
 export class Properties {
 	public name: string;
@@ -15,7 +17,7 @@ export class Properties {
 	public numberOfRooms: number;
 	public city: string;
 	public state: string;
-	public size: number;
+	public size: string;
 
     constructor({name, totalValue, numberOfRooms, city, state, size}: PropertiesType) {
         this.name = name;

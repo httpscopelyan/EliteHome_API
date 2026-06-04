@@ -5,9 +5,10 @@ import {
 } from "@/use-cases/create-properties";
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
+	// TODO validar os dados de create das properties
 	const useCase = new CreatePropertiesUseCase();
 
-	const response = useCase.execute(
+	const response = await useCase.execute(
 		request.body as CreatePropertiesUseCaseRequest,
 	);
 

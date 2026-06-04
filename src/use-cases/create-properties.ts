@@ -1,5 +1,5 @@
 import { Properties } from "@/entities/properties";
-import { properties } from "@/http/controller/properties/routes";
+import { knex } from "../database/index";
 
 export type CreatePropertiesUseCaseRequest = {
 	name: string;
@@ -7,21 +7,21 @@ export type CreatePropertiesUseCaseRequest = {
 	numberOfRooms: number;
 	city: string;
 	state: string;
-	size: number;
+	size: string;
 };
 export type CreatePropertiesUseCaseResponse = {
 	property: Properties;
 };
 
 export class CreatePropertiesUseCase {
-	execute({
+	async execute({
 		name,
 		totalValue,
 		numberOfRooms,
 		city,
 		state,
 		size,
-	}: CreatePropertiesUseCaseRequest): CreatePropertiesUseCaseResponse {
+	}: CreatePropertiesUseCaseRequest): Promise<CreatePropertiesUseCaseResponse> {
 		const property = new Properties({
 			name,
 			totalValue,
@@ -31,7 +31,18 @@ export class CreatePropertiesUseCase {
 			size,
 		});
 
-        properties.push(property)
-		return { property };
+		// TODO salvar as properties no banco de dados
+		const [createdProperty] = await knex("properties")
+			.insert({
+				name: property.name,
+				total_value: property.totalValue,
+				number_of_rooms: property.numberOfRooms,
+				city: property.city,
+				state: property.state,
+				size: property.size,
+			})
+			.returning("*");
+
+		return { property: createdProperty };
 	}
 }
