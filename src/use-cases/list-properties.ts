@@ -4,7 +4,7 @@ import { properties } from "@/http/controller/properties/routes";
 export type ListPropertiesUseCaseResponse = {
 	properties: Properties[];
 };
-
+//TODO github
 export class ListPropertiesUseCase {
 	execute(): ListPropertiesUseCaseResponse {
 		return { properties };
