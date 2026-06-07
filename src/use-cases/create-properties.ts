@@ -1,3 +1,4 @@
+import { PropertySchema } from "@/database/schemas/property";
 import { Properties } from "@/entities/properties";
 import { knex } from "../database/index";
 
@@ -32,17 +33,23 @@ export class CreatePropertiesUseCase {
 		});
 
 		// TODO salvar as properties no banco de dados
-		const [createdProperty] = await knex("properties")
+		const [createdProperty] = await knex<PropertySchema>("properties")
 			.insert({
 				name: property.name,
 				total_value: property.totalValue,
 				number_of_rooms: property.numberOfRooms,
 				city: property.city,
 				state: property.state,
-				size: property.size,
+				size: property.size
 			})
 			.returning("*");
 
-		return { property: createdProperty };
+		if (!createdProperty) {
+			throw new Error("Argumentos invalidos");
+		}
+
+		const propertyEntity = new PropertySchema(createdProperty).toEntity();
+
+		return { property: propertyEntity};
 	}
 }
