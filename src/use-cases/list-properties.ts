@@ -1,11 +1,14 @@
+import type { PropertiesRepository } from "@/database/repository/properties";
 import type { Properties } from "@/entities/properties";
-import { properties } from "@/http/controller/properties/routes";
 
 export type ListPropertiesUseCaseResponse = {
 	properties: Properties[];
 };
 export class ListPropertiesUseCase {
-	execute(): ListPropertiesUseCaseResponse {
+	constructor(private repository: PropertiesRepository) {}
+
+	async execute(): Promise<ListPropertiesUseCaseResponse> {
+		const properties = await this.repository.find();
 		return { properties };
 	}
 }

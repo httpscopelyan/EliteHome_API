@@ -1,6 +1,6 @@
-import { PropertySchema } from "@/database/schemas/property";
+
+import type { PropertiesRepository } from "@/database/repository/properties";
 import { Properties } from "@/entities/properties";
-import { knex } from "../database/index";
 
 export type CreatePropertiesUseCaseRequest = {
 	name: string;
@@ -15,6 +15,7 @@ export type CreatePropertiesUseCaseResponse = {
 };
 
 export class CreatePropertiesUseCase {
+	constructor(private repository: PropertiesRepository) {}
 	async execute({
 		name,
 		totalValue,
@@ -32,24 +33,9 @@ export class CreatePropertiesUseCase {
 			size,
 		});
 
-		// TODO salvar as properties no banco de dados
-		const [createdProperty] = await knex<PropertySchema>("properties")
-			.insert({
-				name: property.name,
-				total_value: property.totalValue,
-				number_of_rooms: property.numberOfRooms,
-				city: property.city,
-				state: property.state,
-				size: property.size
-			})
-			.returning("*");
+		
+		const createdProperty = await this.repository.create(property)
 
-		if (!createdProperty) {
-			throw new Error("Argumentos invalidos");
-		}
-
-		const propertyEntity = new PropertySchema(createdProperty).toEntity();
-
-		return { property: propertyEntity};
+		return { property: createdProperty};
 	}
 }
