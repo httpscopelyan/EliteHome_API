@@ -8,4 +8,3 @@ app.register(propertiesRoutes);
 app.register(baseRoutes)
 
 // TODO criar um HANDLER global de erros
-// TODO criar conexão com o Banco de Dados

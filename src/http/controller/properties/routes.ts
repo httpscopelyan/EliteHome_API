@@ -6,6 +6,6 @@ import { list } from "./list";
 export const properties: Properties[] = [];
 
 export async function propertiesRoutes(app: FastifyInstance) {
-	app.post("/properties", create);
-	app.get("/properties", list)
+	app.post("/manager/properties", create);
+	app.get("/manager/properties", list)
 }
